@@ -33,7 +33,7 @@ defmodule Exbee.TxFrame do
           payload: binary
         }
   defstruct id: 0x01,
-            mac_addr: 0x000000000000FFFF,
+            mac_addr: 0xFFFFFFFFFFFFFFFF,
             network_addr: 0xFFFE,
             radius: 0x00,
             options: 0x00,

@@ -16,7 +16,12 @@ defmodule Exbee.RemoteATCommandFrame do
           command: String.t(),
           value: binary
         }
-  defstruct id: 0x01, mac_addr: 0x00, network_addr: 0xFFFE, options: 0x00, command: "", value: nil
+  defstruct id: 0x01,
+            mac_addr: 0xFFFFFFFFFFFFFFFF,
+            network_addr: 0xFFFE,
+            options: 0x00,
+            command: "",
+            value: nil
 
   defimpl Exbee.EncodableFrame do
     alias Exbee.Util
