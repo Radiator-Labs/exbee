@@ -48,6 +48,12 @@ defmodule Exbee.MessageTest do
       assert buffer == <<>>
     end
 
+    test "parses frames with 0x7E in their payloads" do
+      {buffer, frames} = Message.parse(<<0x7E, 0x00, 0x04, 0x01, 0x02, 0x7E, 0x03, 0x7B>>)
+      assert [%Exbee.GenericFrame{payload: <<0x02, 0x7E, 0x03>>}] = frames
+      assert buffer == <<>>
+    end
+
     test "ignores frames with invalid checksums and logs the error" do
       log =
         capture_log(fn ->

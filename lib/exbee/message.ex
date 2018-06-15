@@ -30,7 +30,7 @@ defmodule Exbee.Message do
   """
   @spec parse(binary) :: {binary, [DecodableFrame.t()]}
   def parse(data) do
-    do_parse(data, <<>>, [])
+    do_parse(data, [])
   end
 
   @doc """
@@ -46,16 +46,17 @@ defmodule Exbee.Message do
       calculate_checksum(encoded_frame)>>
   end
 
-  defp do_parse(data, buffer, frames) when byte_size(data) < 1, do: {buffer, frames}
-  defp do_parse(<<@separator, rest::binary>>, _, frames), do: do_parse(rest, <<@separator>>, frames)
+  defp do_parse(data, frames) do
+    with [_, post_separator] <- :binary.split(data, @separator) do
+      case post_separator do
+        <<length::16, encoded_frame::binary-size(length), checksum::8, remainder::binary>> ->
+          do_parse(remainder, apply_frame(frames, encoded_frame, checksum))
 
-  defp do_parse(<<next_char::binary-size(1), rest::binary>>, buffer, frames) do
-    case buffer <> next_char do
-      <<@separator, length::16, encoded_frame::binary-size(length), checksum::8>> ->
-        do_parse(rest, <<>>, apply_frame(frames, encoded_frame, checksum))
-
-      new_buffer ->
-        do_parse(rest, new_buffer, frames)
+        _ ->
+          {@separator <> post_separator, frames}
+      end
+    else
+      [_] -> {<<>>, frames}
     end
   end
 
