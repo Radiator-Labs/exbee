@@ -2,8 +2,8 @@ defmodule Exbee.ExplicitTxFrame do
   @moduledoc """
   Similar to the `Exbee.TxFrame`, but requires specific addressing fields.
 
-    * For broadcast transmissions, set `:mac_addr` to `0x000000000000FFFF`.
-    * Address the coordinator by either setting the `mac_addr` to `0x00` and `:network_addr` to
+    * For broadcast transmissions, set `:mac_addr` to `"000000000000FFFF"`.
+    * Address the coordinator by either setting the `mac_addr` to `"0000000000000000"` and `:network_addr` to
       `0xFFFE`, or by setting `:mac_addr` to the coordinator's mac address and `:network_addr` to
       `0x0000`.
     * For all other transmissions, setting `:network_addr` to the correct 16-bit address helps
