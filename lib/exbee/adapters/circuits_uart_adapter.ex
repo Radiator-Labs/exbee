@@ -1,5 +1,5 @@
-defmodule Exbee.NervesUARTAdapter do
-  alias Nerves.UART
+defmodule Exbee.CircuitsUARTAdapter do
+  alias Circuits.UART
 
   @behaviour Exbee.Adapter
 

@@ -151,7 +151,7 @@ defmodule Exbee do
     {:reply, adapter.stop(adapter_pid), state}
   end
 
-  def handle_info({:nerves_uart, _port, data}, %{caller_pid: caller_pid, buffer: buffer} = state) do
+  def handle_info({:circuits_uart, _port, data}, %{caller_pid: caller_pid, buffer: buffer} = state) do
     {new_buffer, frames} = Message.parse(buffer <> data)
 
     for frame <- frames do

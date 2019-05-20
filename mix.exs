@@ -25,12 +25,12 @@ defmodule Exbee.Mixfile do
   end
 
   def application do
-    [applications: [:logger, :nerves_uart]]
+    [applications: [:logger, :circuits_uart]]
   end
 
   defp deps do
     [
-      {:nerves_uart, "~> 1.1.0"},
+      {:circuits_uart, "~> 1.3"},
       {:ex_doc, "~> 0.14", only: :dev},
       {:dialyxir, "~> 0.5", only: [:dev], runtime: false}
     ]

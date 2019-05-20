@@ -34,7 +34,7 @@ defmodule Exbee.FakeAdapter do
   end
 
   def handle_call({:write, _message}, _, %{controlling_pid: controlling_pid} = state) do
-    send(controlling_pid, {:nerves_uart, 0, MessageQueue.dequeue()})
+    send(controlling_pid, {:circuits_uart, 0, MessageQueue.dequeue()})
     {:reply, :ok, state}
   end
 
