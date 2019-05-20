@@ -7,7 +7,7 @@ defmodule Exbee.RemoteATCommandResultFrame do
 
   @type t :: %__MODULE__{
           id: integer,
-          mac_addr: integer,
+          mac_addr: binary,
           network_addr: integer,
           command: String.t(),
           status: atom,
@@ -26,12 +26,12 @@ defmodule Exbee.RemoteATCommandResultFrame do
 
     def decode(frame, encoded_binary) do
       case encoded_binary do
-        <<0x97, id::8, mac_addr::64, network_addr::16, command::bitstring-size(16), status::8,
-          value::binary>> ->
+        <<0x97, id::8, mac_addr::binary-size(8), network_addr::16, command::bitstring-size(16),
+          status::8, value::binary>> ->
           decoded_frame = %{
             frame
             | id: id,
-              mac_addr: mac_addr,
+              mac_addr: Base.encode16(mac_addr),
               network_addr: network_addr,
               command: command,
               status: @statuses[status],

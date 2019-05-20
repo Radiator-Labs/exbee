@@ -10,14 +10,14 @@ defmodule Exbee.RemoteATCommandFrame do
 
   @type t :: %__MODULE__{
           id: integer,
-          mac_addr: integer,
+          mac_addr: binary,
           network_addr: integer,
           options: integer,
           command: String.t(),
           value: binary
         }
   defstruct id: 0x01,
-            mac_addr: 0xFFFFFFFFFFFFFFFF,
+            mac_addr: "FFFFFFFFFFFFFFFF",
             network_addr: 0xFFFE,
             options: 0x00,
             command: "",
@@ -37,11 +37,15 @@ defmodule Exbee.RemoteATCommandFrame do
         ) do
       case frame do
         %{value: nil} ->
-          <<0x17, id::8, mac_addr::64, network_addr::16, options::8, command::bitstring-size(16)>>
+          <<0x17, id::8>> <>
+            Base.decode16!(mac_addr) <>
+            <<network_addr::16, options::8, command::bitstring-size(16)>>
 
         %{value: value} ->
-          <<0x17, id::8, mac_addr::64, network_addr::16, options::8, command::bitstring-size(16),
-            Util.to_binary(value)::binary>>
+          <<0x17, id::8>> <>
+            Base.decode16!(mac_addr) <>
+            <<network_addr::16, options::8, command::bitstring-size(16),
+              Util.to_binary(value)::binary>>
       end
     end
   end

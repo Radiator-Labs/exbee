@@ -25,7 +25,7 @@ defmodule Exbee.ExplicitTxFrame do
 
   @type t :: %__MODULE__{
           id: integer,
-          mac_addr: integer,
+          mac_addr: binary,
           network_addr: integer,
           source: integer,
           endpoint: integer,
@@ -36,7 +36,7 @@ defmodule Exbee.ExplicitTxFrame do
           payload: binary
         }
   defstruct id: 0x01,
-            mac_addr: 0xFFFFFFFFFFFFFFFF,
+            mac_addr: "FFFFFFFFFFFFFFFF",
             network_addr: 0xFFFE,
             source: nil,
             endpoint: nil,
@@ -61,8 +61,10 @@ defmodule Exbee.ExplicitTxFrame do
           options: options,
           payload: payload
         }) do
-      <<0x11, id::8, mac_addr::64, network_addr::16, source::8, endpoint::8, cluster_id::16,
-        profile_id::16, radius::8, options::8, Util.to_binary(payload)::binary>>
+      <<0x11, id::8>> <>
+        Base.decode16!(mac_addr) <>
+        <<network_addr::16, source::8, endpoint::8, cluster_id::16, profile_id::16, radius::8,
+          options::8, Util.to_binary(payload)::binary>>
     end
   end
 end
