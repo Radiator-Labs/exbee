@@ -6,7 +6,7 @@ defmodule Exbee.ATCommandResultFrame do
   """
 
   @type t :: %__MODULE__{id: integer, command: String.t(), status: atom, value: binary}
-  defstruct id: 0x00, command: nil, status: nil, value: nil
+  defstruct [:id, :command, :status, :value]
 
   defimpl Exbee.DecodableFrame do
     @statuses %{
