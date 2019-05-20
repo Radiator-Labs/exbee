@@ -35,7 +35,7 @@ defmodule Exbee.ExplicitTxFrame do
           options: integer,
           payload: binary
         }
-  defstruct id: 0x01,
+  defstruct id: 0x00,
             mac_addr: "FFFFFFFFFFFFFFFF",
             network_addr: 0xFFFE,
             source: nil,

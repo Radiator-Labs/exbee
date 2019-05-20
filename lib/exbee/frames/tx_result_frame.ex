@@ -31,7 +31,7 @@ defmodule Exbee.TxResultFrame do
           status: integer,
           discovery: integer
         }
-  defstruct id: 0x01, network_addr: nil, retry_count: 0, status: nil, discovery: nil
+  defstruct id: 0x00, network_addr: nil, retry_count: 0, status: nil, discovery: nil
 
   defimpl Exbee.DecodableFrame do
     @statuses %{

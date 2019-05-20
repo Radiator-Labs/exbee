@@ -8,7 +8,7 @@ defmodule Exbee.ATCommandFrame do
   """
 
   @type t :: %__MODULE__{id: integer, command: String.t(), value: binary}
-  defstruct id: 0x01, command: "", value: nil
+  defstruct id: 0x00, command: "", value: nil
 
   defimpl Exbee.EncodableFrame do
     alias Exbee.Util

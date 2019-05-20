@@ -16,7 +16,7 @@ defmodule Exbee.RemoteATCommandFrame do
           command: String.t(),
           value: binary
         }
-  defstruct id: 0x01,
+  defstruct id: 0x00,
             mac_addr: "FFFFFFFFFFFFFFFF",
             network_addr: 0xFFFE,
             options: 0x00,
