@@ -84,11 +84,7 @@ defmodule Exbee.Message do
     end
   end
 
-  defp calculate_checksum(encoded_frame) do
-    0xFF - (encoded_frame |> sum_bytes() |> rem(256))
-  end
-
-  defp sum_bytes(encoded, sum \\ 0)
-  defp sum_bytes(<<>>, sum), do: sum
-  defp sum_bytes(<<h::8, t::binary>>, sum), do: sum_bytes(t, sum + h)
+  defp calculate_checksum(encoded_frame),
+    do:
+      0xFF - (encoded_frame |> :erlang.binary_to_list() |> Enum.reduce(0, &Kernel.+/2) |> rem(256))
 end
