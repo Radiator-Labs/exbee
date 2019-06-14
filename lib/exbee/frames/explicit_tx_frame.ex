@@ -61,6 +61,7 @@ defmodule Exbee.ExplicitTxFrame do
           profile_id: profile_id,
           radius: radius,
           options: options,
+          sequence: sequence,
           payload: payload
         }) do
       <<0x11, id::8>> <>
