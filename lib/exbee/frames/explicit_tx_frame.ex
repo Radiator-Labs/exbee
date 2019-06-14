@@ -33,6 +33,7 @@ defmodule Exbee.ExplicitTxFrame do
           profile_id: integer,
           radius: integer,
           options: integer,
+          sequence: integer,
           payload: binary
         }
   defstruct id: 0x00,
@@ -44,6 +45,7 @@ defmodule Exbee.ExplicitTxFrame do
             profile_id: nil,
             radius: 0x00,
             options: 0x00,
+            sequence: nil,
             payload: nil
 
   defimpl Exbee.EncodableFrame do
@@ -64,7 +66,7 @@ defmodule Exbee.ExplicitTxFrame do
       <<0x11, id::8>> <>
         Base.decode16!(mac_addr) <>
         <<network_addr::16, source::8, endpoint::8, cluster_id::16, profile_id::16, radius::8,
-          options::8, Util.to_binary(payload)::binary>>
+          options::8, sequence::8, Util.to_binary(payload)::binary>>
     end
   end
 end

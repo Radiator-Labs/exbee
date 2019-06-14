@@ -17,3 +17,5 @@ erl_crash.dump
 *.ez
 
 .tool-versions
+
+quick.exs
