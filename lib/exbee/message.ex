@@ -17,7 +17,8 @@ defmodule Exbee.Message do
     0x91 => Exbee.ExplicitRxFrame,
     0x92 => Exbee.RxSampleReadFrame,
     0x94 => Exbee.RxSensorReadFrame,
-    0x97 => Exbee.RemoteATCommandResultFrame
+    0x97 => Exbee.RemoteATCommandResultFrame,
+    0xA1 => Exbee.RouteRecordIndicator
   }
 
   @doc """
