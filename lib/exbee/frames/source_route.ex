@@ -1,4 +1,4 @@
-defmodule Exbee.CreateSourceRoute do
+defmodule Exbee.SourceRoute do
   @moduledoc """
   Frame type: 0x21
   https://www.digi.com/resources/documentation/digidocs/PDFs/90000976.pdf#page=123
@@ -33,14 +33,12 @@ defmodule Exbee.CreateSourceRoute do
     mac_addr: binary,
     network_addr: integer,
     options: integer,
-    number_of_addresses: integer,
     payload: binary
   }
 defstruct id: 0x00,
       mac_addr: "FFFFFFFFFFFFFFFF",
       network_addr: 0xFFFE,
       options: 0x00,
-      number_of_addresses: 0x00, #do not include source and destination
       payload: nil
 
 defimpl Exbee.EncodableFrame do
