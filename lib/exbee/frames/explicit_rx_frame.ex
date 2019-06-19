@@ -13,7 +13,7 @@ defmodule Exbee.ExplicitRxFrame do
           endpoint: integer,
           cluster_id: integer,
           profile_id: integer,
-          type: integer,
+          options: integer,
           payload: binary
         }
   defstruct [
@@ -23,7 +23,7 @@ defmodule Exbee.ExplicitRxFrame do
     :endpoint,
     :cluster_id,
     :profile_id,
-    :type,
+    :options,
     :payload
   ]
 
@@ -31,7 +31,7 @@ defmodule Exbee.ExplicitRxFrame do
     def decode(frame, encoded_binary) do
       case encoded_binary do
         <<0x91, mac_addr::binary-size(8), network_addr::16, source::8, endpoint::8, cluster_id::16,
-          profile_id::16, type::8, payload::binary>> ->
+          profile_id::16, options::8, payload::binary>> ->
           decoded_frame = %{
             frame
             | mac_addr: mac_addr |> Base.encode16(),
@@ -40,7 +40,7 @@ defmodule Exbee.ExplicitRxFrame do
               endpoint: endpoint,
               cluster_id: cluster_id,
               profile_id: profile_id,
-              type: type,
+              options: options,
               payload: payload
           }
 

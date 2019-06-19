@@ -40,7 +40,7 @@ defstruct id: 0x00,
       mac_addr: "FFFFFFFFFFFFFFFF",
       network_addr: 0xFFFE,
       options: 0x00,
-      number_of_addresses: 0x01, #do not include source and destination
+      number_of_addresses: 0x00, #do not include source and destination
       payload: nil
 
 defimpl Exbee.EncodableFrame do
@@ -51,12 +51,11 @@ def encode(%{
     mac_addr: mac_addr,
     network_addr: network_addr,
     options: options,
-    number_of_addresses: number_of_addresses,
     payload: payload
   }) do
 <<0x21, id::8>> <>
   Base.decode16!(mac_addr) <>
-  <<network_addr::16, options::8, number_of_addresses::8, Util.to_binary(payload)::binary>>
+  <<network_addr::16, options::8, Util.to_binary(payload)::binary>>
 end
 end
 end
