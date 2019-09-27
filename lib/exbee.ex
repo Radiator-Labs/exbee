@@ -36,7 +36,7 @@ defmodule Exbee do
       {:exbee, %Exbee.ATCommandResultFrame{command: "NJ", status: :ok, value: <0x01>}}
   """
 
-  use GenServer
+  use GenServer, restart: :permanent
   alias Exbee.{Message}
 
   @config Application.get_all_env(:exbee)
